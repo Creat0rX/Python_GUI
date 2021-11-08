@@ -4,7 +4,9 @@ This is my repository where I experiment creating programs using the GUI librari
 
 ## List of tasks
 
-* app.py
+[x] app.py
+[] tictactoe.py
+[] mastermind.py
 
 ### app.py
 
