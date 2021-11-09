@@ -13,7 +13,7 @@ All programs are built using python 3, and can be run on any machine which has p
 - [ ] xguesser.py
 - [ ] hangman.py
 - [ ] countries.py
-- [ ] paintVGA.py
+- [x] paintVGA.py
 - [ ] mastermind.py
 
 ### app.py
