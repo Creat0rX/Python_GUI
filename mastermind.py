@@ -19,16 +19,41 @@ def newgame():
     gameans["bg"] = "black"
     guess_round = 0
     guess = [randrange(8) for _ in range(4)]
+    for line in gametokens:
+        for circle in line:
+            circle.create_oval(7, 2, 53, 48, outline="black", fill="white")
     gameover = False
+
+def check():
+    global guess_round
+    if guess_list == guess:
+        solution()
+    else:
+        guess_round += 1
+        guess_list.clear()
+    if not gameover and guess_round == 10:
+        solution()
 
 def clear():
     pass
+
+def select(event, value):
+    global guess_list
+    if not gameover:
+        if len(guess_list) < 4:
+            index = len(guess_list)
+            guess_list.append(value)
+        else:
+            index = 3
+            guess_list[-1] = value
+        gametokens[guess_round][index].create_oval(7, 2, 53, 48, outline="black", fill=colours[value])
 
 guess = [randrange(8) for _ in range(4)]
 print(*guess)
 
 colours = ["red", "blue", "green", "yellow", "magenta", "orange", "cyan", "hotpink"]
 guess_round = 0
+guess_list = []
 gameover = False
 
 app = tk.Tk()
@@ -55,8 +80,8 @@ gameconsole = [tk.Canvas(gamespace, width=60, height=50, bg="#883",
 gamebuttons = tk.Frame(gamespace, width=60, height=100, bg="#883", 
                 highlightbackground="black", highlightthickness=1)
 
-clear = tk.Button(gamebuttons, text="Clear", width=6)
-submit = tk.Button(gamebuttons, text="Submit", width=6)
+_clear = tk.Button(gamebuttons, text="Clear", width=6)
+submit = tk.Button(gamebuttons, text="Submit", width=6, command=check)
 
 for index, console in enumerate(gameconsole):
     console.create_oval(4, 1, 26, 23, outline="black")
@@ -67,12 +92,13 @@ for index, console in enumerate(gameconsole):
 
 for index, colour in enumerate(gamecolours):
     colour.place(x=60 * (index % 4), y=25 * (index // 4))
+    colour.bind("<Button-1>", lambda x, y=index: select(x,y))
 
 gamespace.place(x=0, y=0)
 gameans.place(x=0, y=500)
 gamepanel.place(x=0, y=550)
 gamebuttons.place(x=240, y=500)
-clear.place(x=3, y=20)
+_clear.place(x=3, y=20)
 submit.place(x=3, y=50)
 
 for index, bar in enumerate(gameplay):
@@ -92,6 +118,8 @@ filemenu.add_command(label="Solution", command=solution, underline=0, accelerato
 filemenu.add_separator()
 filemenu.add_command(label="Quit", command=app.destroy, underline=0, accelerator="Ctrl+Q")
 
+app.bind("<Control-n>", lambda dummy: newgame())
+app.bind("<Control-s>", lambda dummy: solution())
 app.bind("<Control-q>", lambda dummy: app.destroy())
 app.bind("<Button-3>", lambda dummy: clear())
 
