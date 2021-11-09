@@ -17,7 +17,7 @@ All programs are built using python 3, and can be run on any machine which has p
 - [x] paintVGA
 - [ ] mastermind
 
-### app.py
+### app
 
 My first python app created using the `tkinter` module, which displays a button only reachable to be clicked in possible mode.
 
