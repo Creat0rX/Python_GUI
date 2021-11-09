@@ -6,20 +6,25 @@ All programs are built using python 3, and can be run on any machine which has p
 
 ## List of tasks
 
-- [x] app.py
-- [ ] tictactoe.py
-- [ ] calculator.py
-- [ ] guesser.py
-- [ ] xguesser.py
-- [ ] hangman.py
-- [ ] countries.py
-- [x] paintVGA.py
-- [ ] mastermind.py
+- [x] app
+- [ ] clicker
+- [ ] tictactoe
+- [ ] calculator
+- [ ] guesser
+- [ ] xguesser
+- [ ] hangman
+- [ ] countries
+- [x] paintVGA
+- [ ] mastermind
 
 ### app.py
 
 My first python app created using the `tkinter` module, which displays a button only reachable to be clicked in possible mode.
 
-### paintVGA.py
+### paintVGA
 
-[IN PROGRESS] End goal is to make a basic paint-like app with only the VGA 4-colour scheme
+A basic paint-like app with only the VGA 4-colour scheme (saving art currently not implemented)
+
+### mastermind
+
+[IN PROGRESS] A mastermind game, where you have to guess the correct sequence of 4 colours
