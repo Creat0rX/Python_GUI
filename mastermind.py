@@ -35,6 +35,11 @@ def newgame():
     global gameover, guess, guess_round, guess_list
     gameans.delete("all")
     gameans["bg"] = "black"
+    for i in range(guess_round):
+        gameconsole[i].create_oval(4, 1, 26, 23, outline="black", fill="#883")
+        gameconsole[i].create_oval(34, 1, 56, 23, outline="black", fill="#883")
+        gameconsole[i].create_oval(4, 26, 26, 48, outline="black", fill="#883")
+        gameconsole[i].create_oval(34, 26, 56, 48, outline="black", fill="#883")
     guess_round = 0
     guess_list.clear()
     guess = [randrange(8) for _ in range(4)]
@@ -47,16 +52,19 @@ def check():
     global guess_round
     if len(guess_list) == 4:
         fine_check(guess_list)
+        guess_round += 1
         if guess_list == guess:
             solution()
         else:
-            guess_round += 1
             guess_list.clear()
         if not gameover and guess_round == 10:
             solution()
 
 def clear():
-    pass
+    global guess_list
+    if not gameover and guess_list:
+        guess_list.pop()
+        gametokens[guess_round][len(guess_list)].create_oval(7, 2, 53, 48, outline="black", fill="white")
 
 def select(event, value):
     global guess_list
@@ -70,8 +78,6 @@ def select(event, value):
         gametokens[guess_round][index].create_oval(7, 2, 53, 48, outline="black", fill=colours[value])
 
 guess = [randrange(8) for _ in range(4)]
-print(*guess)
-
 colours = ["red", "blue", "green", "yellow", "magenta", "orange", "cyan", "hotpink"]
 guess_round = 0
 guess_list = []
@@ -101,7 +107,7 @@ gameconsole = [tk.Canvas(gamespace, width=60, height=50, bg="#883",
 gamebuttons = tk.Frame(gamespace, width=60, height=100, bg="#883", 
                 highlightbackground="black", highlightthickness=1)
 
-_clear = tk.Button(gamebuttons, text="Clear", width=6)
+_clear = tk.Button(gamebuttons, text="Clear", width=6, command=clear)
 submit = tk.Button(gamebuttons, text="Submit", width=6, command=check)
 
 for index, console in enumerate(gameconsole):
