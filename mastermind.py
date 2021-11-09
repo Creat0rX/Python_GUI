@@ -13,11 +13,30 @@ def solution():
             gameans.create_oval(7 + 60*index, 2, 53 + 60*index, 48, outline="black", fill=colours[value])
         gameover = True
 
+def hint(checker):
+    checker = ["black" if x == 9 else "white" for x in checker] + ["#883", "#883", "#883", "#883"][len(checker):4]
+    gameconsole[guess_round].create_oval(4, 1, 26, 23, outline="black", fill=checker[0])
+    gameconsole[guess_round].create_oval(34, 1, 56, 23, outline="black", fill=checker[1])
+    gameconsole[guess_round].create_oval(4, 26, 26, 48, outline="black", fill=checker[2])
+    gameconsole[guess_round].create_oval(34, 26, 56, 48, outline="black", fill=checker[3])
+
+def fine_check(guess_list):
+    mask = [9 if guess_list[i] == guess[i] else guess[i] for i in range(4)]
+    for i in range(4):
+        if not mask[i]:
+            continue
+        if guess_list[i] in mask:
+            mask[mask.index(guess_list[i])] = 8
+    checker = list(filter(lambda x: x > 7, mask))
+    checker.sort()
+    hint(checker)
+
 def newgame():
-    global gameover, guess, guess_round
+    global gameover, guess, guess_round, guess_list
     gameans.delete("all")
     gameans["bg"] = "black"
     guess_round = 0
+    guess_list.clear()
     guess = [randrange(8) for _ in range(4)]
     for line in gametokens:
         for circle in line:
@@ -26,13 +45,15 @@ def newgame():
 
 def check():
     global guess_round
-    if guess_list == guess:
-        solution()
-    else:
-        guess_round += 1
-        guess_list.clear()
-    if not gameover and guess_round == 10:
-        solution()
+    if len(guess_list) == 4:
+        fine_check(guess_list)
+        if guess_list == guess:
+            solution()
+        else:
+            guess_round += 1
+            guess_list.clear()
+        if not gameover and guess_round == 10:
+            solution()
 
 def clear():
     pass
