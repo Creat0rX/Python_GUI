@@ -28,3 +28,7 @@ A basic paint-like app with only the VGA 4-colour scheme (saving art currently n
 ### mastermind
 
 A mastermind game, where you have to guess the correct sequence of 4 colours
+
+### xguesser
+
+[IN PROGRESS] A game where you have to go through a full deck of cards, trying to guess the incorrect value of the next card
