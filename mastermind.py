@@ -56,7 +56,7 @@ def newgame():
 
 def check():
     global guess_round
-    if len(guess_list) == 4:
+    if len(guess_list) == 4 and not gameover:
         fine_check(guess_list)
         guess_round += 1
         if guess_list == guess:
@@ -156,5 +156,11 @@ app.bind("<Control-n>", lambda dummy: newgame())
 app.bind("<Control-s>", lambda dummy: solution())
 app.bind("<Control-q>", lambda dummy: app.destroy())
 app.bind("<Button-3>", lambda dummy: clear())
+
+for i in range(8):
+    app.bind(f"{i + 1}", lambda x, y=i: select(x, y))
+app.bind("<Return>", lambda dummy: check())
+app.bind("<BackSpace>", lambda dummy: clear())
+
 
 app.mainloop()
