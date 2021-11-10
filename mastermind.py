@@ -13,6 +13,11 @@ def solution():
             gameans.create_oval(7 + 60*index, 2, 53 + 60*index, 48, outline="black", fill=colours[value])
         gameover = True
 
+def next_round():
+    if guess_round < 10:
+        for i in range(4):
+            gametokens[guess_round][i].create_oval(7, 2, 53, 48, outline="black", fill="white")
+
 def hint(checker):
     checker = ["black" if x == 9 else "white" for x in checker] + ["#883", "#883", "#883", "#883"][len(checker):4]
     gameconsole[guess_round].create_oval(4, 1, 26, 23, outline="black", fill=checker[0])
@@ -23,7 +28,7 @@ def hint(checker):
 def fine_check(guess_list):
     mask = [9 if guess_list[i] == guess[i] else guess[i] for i in range(4)]
     for i in range(4):
-        if not mask[i]:
+        if mask[i] == 9:
             continue
         if guess_list[i] in mask:
             mask[mask.index(guess_list[i])] = 8
@@ -43,9 +48,10 @@ def newgame():
     guess_round = 0
     guess_list.clear()
     guess = [randrange(8) for _ in range(4)]
-    for line in gametokens:
+    for first, line in enumerate(gametokens):
         for circle in line:
-            circle.create_oval(7, 2, 53, 48, outline="black", fill="white")
+            fill = "#883" if first else "white"
+            circle.create_oval(7, 2, 53, 48, outline="black", fill=fill)
     gameover = False
 
 def check():
@@ -57,6 +63,7 @@ def check():
             solution()
         else:
             guess_list.clear()
+            next_round()
         if not gameover and guess_round == 10:
             solution()
 
@@ -95,9 +102,9 @@ gameplay = [tk.Frame(gamespace, width=240, height=50, bg="#883",
                 for _ in range(10)]
 gameans = tk.Canvas(gamespace, width=240, height=50, bg="black", highlightbackground="black", highlightthickness=1)
 gametokens = [[tk.Canvas(gameplay[i], width=60, height=50, bg="#883", 
-                highlightbackground="#883") 
+                highlightbackground="#883")
                 for _ in range(4)] for i in range(10)]
-gamepanel = tk.Frame(gamespace, width=240, height=50, bg="white")
+gamepanel = tk.Frame(gamespace, width=240, height=50)
 gamecolours = [tk.Frame(gamepanel, width=60, height=25, bg=colours[x], 
                 highlightbackground="black", highlightthickness=1)
                 for x in range(8)]
@@ -131,7 +138,7 @@ submit.place(x=3, y=50)
 for index, bar in enumerate(gameplay):
     bar.place(x=0, y=50*index)
     for index2, circle in enumerate(gametokens[index]):
-        circle.create_oval(7, 2, 53, 48, outline="black", fill="white")
+        circle.create_oval(7, 2, 53, 48, outline="black", fill="#883" if index else "white")
         circle.place(x=60*index2, y=0)
 
 mainmenu = tk.Menu(app)
