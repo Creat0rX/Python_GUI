@@ -15,7 +15,7 @@ All programs are built using python 3, and can be run on any machine which has p
 - [ ] hangman
 - [ ] countries
 - [x] paintVGA
-- [ ] mastermind
+- [x] mastermind
 
 ### app
 
@@ -27,4 +27,4 @@ A basic paint-like app with only the VGA 4-colour scheme (saving art currently n
 
 ### mastermind
 
-[IN PROGRESS] A mastermind game, where you have to guess the correct sequence of 4 colours
+A mastermind game, where you have to guess the correct sequence of 4 colours
