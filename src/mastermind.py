@@ -85,7 +85,7 @@ def select(event, value):
         gametokens[guess_round][index].create_oval(7, 2, 53, 48, outline="black", fill=colours[value])
 
 guess = [randrange(8) for _ in range(4)]
-colours = ["red", "blue", "green", "yellow", "magenta", "orange", "cyan", "hotpink"]
+colours = ["red", "blue", "green", "yellow", "magenta", "orange", "cyan", "pink"]
 guess_round = 0
 guess_list = []
 gameover = False
@@ -161,6 +161,5 @@ for i in range(8):
     app.bind(f"{i + 1}", lambda x, y=i: select(x, y))
 app.bind("<Return>", lambda dummy: check())
 app.bind("<BackSpace>", lambda dummy: clear())
-
 
 app.mainloop()
