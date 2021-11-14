@@ -32,3 +32,7 @@ A mastermind game, where you have to guess the correct sequence of 4 colours
 ### xguesser
 
 [IN PROGRESS] A game where you have to go through a full deck of cards, trying to guess the incorrect value of the next card
+
+### hangman
+
+[IN PROGRESS] A game where you have to guess the name of the pokemon before you draw a hangman figure
